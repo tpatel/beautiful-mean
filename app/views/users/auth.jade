@@ -20,7 +20,11 @@ block content
       .signin
         block auth
         hr
-        a.btn.btn-lg.btn-default.btn-block(href="/auth/facebook") Sign in with Facebook
-        a.btn.btn-lg.btn-default.btn-block(href="/auth/github") Sign in with Github
-        a.btn.btn-lg.btn-default.btn-block(href="/auth/twitter") Sign in with Twitter
-        a.btn.btn-lg.btn-default.btn-block(href="/auth/google") Sign in with Google
+        if(providers.facebook)
+          a.btn.btn-lg.btn-default.btn-block(href="/auth/facebook") Sign in with Facebook
+        if(providers.github)
+          a.btn.btn-lg.btn-default.btn-block(href="/auth/github") Sign in with Github
+        if(providers.twitter)
+          a.btn.btn-lg.btn-default.btn-block(href="/auth/twitter") Sign in with Twitter
+        if(providers.google)
+          a.btn.btn-lg.btn-default.btn-block(href="/auth/google") Sign in with Google
