@@ -76,25 +76,6 @@ exports.create = function(req, res) {
 };
 
 /**
- *  Show profile
- */
-exports.show = function(req, res) {
-    var user = req.profile;
-
-    res.render('users/show', {
-        title: user.name,
-        user: user
-    });
-};
-
-/**
- * Send User
- */
-exports.me = function(req, res) {
-    res.jsonp(req.user || null);
-};
-
-/**
  * Find user by id
  */
 exports.user = function(req, res, next, id) {
