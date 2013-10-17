@@ -1,11 +1,13 @@
 <section data-ng-controller="ArticlesController" data-ng-init="find()">
-	<ul class="articles unstyled">
-		<li data-ng-repeat="article in articles">
-			<span>{{article.created | date:'medium'}}</span> /
-			<span>{{article.user.name}}</span>
-			<h2><a data-ng-href="#!/articles/{{article._id}}">{{article.title}}</a></h2>
+	<div class="panel panel-default" data-ng-repeat="article in articles">
+		<div class="panel-heading">
+			<h3 class="panel-title"><a data-ng-href="#!/articles/{{article._id}}">{{article.title}}</a></h3>
+			<small><span>{{article.created | date:'medium'}}</span> /
+			<span>{{article.user.name}}</span></small>
+		</div>
+		<div class="panel-body">
 			<div>{{article.content}}</div>
-		</li>
-	</ul>
+		</div>
+	</div>
 	<h1 data-ng-hide="!articles || articles.length">No articles yet. <br> Why don't you <a href="/#!/articles/create">Create One</a>?</h1>
 </section>

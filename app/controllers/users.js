@@ -17,7 +17,7 @@ exports.authCallback = function(req, res, next) {
 exports.signin = function(req, res) {
     res.render('users/signin', {
         title: 'Signin',
-        message: req.flash('error')
+        errors: req.flash('error')
     });
 };
 
@@ -25,9 +25,16 @@ exports.signin = function(req, res) {
  * Show sign up form
  */
 exports.signup = function(req, res) {
+    var user = req.flash('user');
+    if(user && user.length == 1) {
+        user = user[0];
+    } else {
+        user = new User();
+    }
     res.render('users/signup', {
         title: 'Sign up',
-        user: new User()
+        //errors: req.flash('errors'),
+        user: user
     });
 };
 
@@ -55,15 +62,16 @@ exports.create = function(req, res) {
     user.provider = 'local';
     user.save(function(err) {
         if (err) {
-            return res.render('users/signup', {
-                errors: err.errors,
-                user: user
-            });
-        }
-        req.logIn(user, function(err) {
-            if (err) return next(err);
-            return res.redirect('/');
-        });
+           for(var i in err.errors) {
+               req.flash('errors', {message:err.errors[i].type, path:err.errors[i].path});
+           }
+           req.flash('user', user);
+           return res.redirect('/signup');
+       }
+       req.logIn(user, function(err) {
+           if (err) return next(err);
+           return res.redirect('/');
+       });
     });
 };
 

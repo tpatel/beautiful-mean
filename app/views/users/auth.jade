@@ -1,22 +1,26 @@
 extends ../layouts/default
 
+mixin input(id, type, placeholder, value, autofocus)
+  input.form-control(id=id,
+    type=type,
+    name=id,
+    value=value
+    placeholder=placeholder,
+    autofocus=autofocus)
+
 block content
   .row
-    .offset1.span5
-      a(href="/auth/facebook")
-        img(src="/img/icons/facebook.png")
-      a(href="/auth/github")
-        img(src="/img/icons/github.png")
-      a(href="/auth/twitter")
-        img(src="/img/icons/twitter.png")
-      a(href="/auth/google")
-        img(src="/img/icons/google.png")
-    .span6
-      if (typeof errors !== 'undefined')
-        .fade.in.alert.alert-block.alert-error
-          a.close(data-dismiss="alert", href="javascript:void(0)") x
+    .col-md-12
+      if (errors && errors.length > 0)
+        .alert.alert-danger.alert-dismissable
+          button.close(type="button", aria-hidden="true") &times;
           ul
             each error in errors
-              li= error.type
-
-      block auth
+              li= error
+      .signin
+        block auth
+        hr
+        a.btn.btn-lg.btn-default.btn-block(href="/auth/facebook") Sign in with Facebook
+        a.btn.btn-lg.btn-default.btn-block(href="/auth/github") Sign in with Github
+        a.btn.btn-lg.btn-default.btn-block(href="/auth/twitter") Sign in with Twitter
+        a.btn.btn-lg.btn-default.btn-block(href="/auth/google") Sign in with Google
