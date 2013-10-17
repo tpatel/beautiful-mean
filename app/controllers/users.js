@@ -75,16 +75,16 @@ exports.create = function(req, res) {
     user.provider = 'local';
     user.save(function(err) {
         if (err) {
-           for(var i in err.errors) {
-               req.flash('errors', {message:err.errors[i].type, path:err.errors[i].path});
-           }
-           req.flash('user', user);
-           return res.redirect('/signup');
-       }
-       req.logIn(user, function(err) {
-           if (err) return next(err);
-           return res.redirect('/');
-       });
+            for(var i in err.errors) {
+                req.flash('errors', err.errors[i].type);
+            }
+            req.flash('user', user);
+            return res.redirect('/signup');
+        }
+        req.logIn(user, function(err) {
+            if (err) return next(err);
+            return res.redirect('/');
+        });
     });
 };
 
